@@ -1,5 +1,9 @@
 package com.example.reto3k.reto3;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,27 +39,27 @@ public class ServiciosReservaciones {
         }
     }
 
-    public Reservaciones update(Reservaciones reservation){
-        if(reservation.getIdReservation()!=null){
-            Optional<Reservaciones> e= metodosCrud.getReservation(reservation.getIdReservation());
+    public Reservaciones update(Reservaciones reservacion){
+        if(reservacion.getIdReservation()!=null){
+            Optional<Reservaciones> e= metodosCrud.getReservation(reservacion.getIdReservation());
             if(!e.isEmpty()){
 
-                if(reservation.getStartDate()!=null){
-                    e.get().setStartDate(reservation.getStartDate());
+                if(reservacion.getStartDate()!=null){
+                    e.get().setStartDate(reservacion.getStartDate());
                 }
-                if(reservation.getDevolutionDate()!=null){
-                    e.get().setDevolutionDate(reservation.getDevolutionDate());
+                if(reservacion.getDevolutionDate()!=null){
+                    e.get().setDevolutionDate(reservacion.getDevolutionDate());
                 }
-                if(reservation.getStatus()!=null){
-                    e.get().setStatus(reservation.getStatus());
+                if(reservacion.getStatus()!=null){
+                    e.get().setStatus(reservacion.getStatus());
                 }
                 metodosCrud.save(e.get());
                 return e.get();
             }else{
-                return reservation;
+                return reservacion;
             }
         }else{
-            return reservation;
+            return reservacion;
         }
     }
 
@@ -66,5 +70,34 @@ public class ServiciosReservaciones {
         }).orElse(false);
         return aBoolean;
     }
+
+    public StatusReservas reporteStatusServicio (){
+        List<Reservaciones>completed= metodosCrud.ReservacionStatusRepositorio("completed");
+        List<Reservaciones>cancelled= metodosCrud.ReservacionStatusRepositorio("cancelled");
+        
+        return new StatusReservas(completed.size(), cancelled.size() );
+    }
+    
+    public List<Reservaciones> reporteTiempoServicio (String datoA, String datoB){
+        SimpleDateFormat parser = new SimpleDateFormat ("yyyy-MM-dd");
+        
+        Date datoUno = new Date();
+        Date datoDos = new Date();
+        
+        try{
+             datoUno = parser.parse(datoA);
+             datoDos = parser.parse(datoB);
+        }catch(ParseException evt){
+            evt.printStackTrace();
+        }if(datoUno.before(datoDos)){
+            return metodosCrud.ReservacionTiempoRepositorio(datoUno, datoDos);
+        }else{
+            return new ArrayList<>();
+        
+        } 
+    } 
+     public List<ContadorClientes> reporteClientesServicio(){
+            return metodosCrud.getClientesRepositorio();
+        } 
 }
 

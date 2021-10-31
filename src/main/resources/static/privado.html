@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html >
+<head>
+  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- <base href="/"/>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+      -->
+    <script type="text/javascript" src="js/Categorias.js"></script>
+    <script type="text/javascript" src="js/Computadores.js"></script> 
+    <script type="text/javascript" src="js/Clientes.js"></script>
+    <script type="text/javascript" src="js/Mensajes.js"></script>
+    <script type="text/javascript" src="js/Reservaciones.js"></script> 
+
+
+    <title>Reto_4</title>
+  </head>
+  <body bgcolor="#CEC0FF">
+
+    <br>
+    <h1> 
+        <center> Reto 4 :Alquiler de Computadores</center>
+        <br>
+        <center> Karent Tatiana Saenz Peña</center>
+    </h1>
+    <br>
+    
+    <div>
+      Bienvenido<span id="user"></span> este recurso es privado y solo se puede ver porque está autenticado. <a href="privado2.html"> Vaya a privado 2</a>
+  </div>
+
+  <script type="text/javascript">    
+      $.get("/user", function (data) { 
+          $("#user").html(data.name);             
+      });
+  </script>
+
+  <br>
+  <br>
+    <h1> Categorias</h1>
+    <h3>*Aqui puedes ingresar los datos necesarios para crear y consultar Categorias*</h3>
+    <br>
+    <input type="text" id="Cname" placeholder="name">
+    <input type="text" id="Cdescription" placeholder="description">
+    <button onclick="traerInformacionCategoriasCom()" id= "btnConsultarCategorias" > Consultar Categorias</button>
+    <button onclick="guardarInformacionCategorias()" id= "btnGuardarCategorias">Guardar Categorias</button>
+    <button onclick="actualizarInformacionCategorias()" id= "btnActualizarCategorias">Actualizar Categorias</button>
+    <h6> </h6> 
+    <div id="resultado1"><br></div>
+    <br>
+
+    <h1> Computadores</h1>
+    <h3>*Aqui puedes ingresar los datos necesarios para crear y consultar Computadores*</h3>
+    <br>
+    <input type="text" id="Comname" placeholder="name">
+    <input type="text" id="Combrand" placeholder="brand">
+    <input type="number" id="Comyear" placeholder="year">
+    <input type="text" id="Comdescription" placeholder="description">
+    <select name="select" id="selectcategoriacom">
+      </select>  
+    <button onclick="traerInformacionComputers()" id= "btnConsultarComputadores"> Consultar Computadores</button>
+    <button onclick="guardarInformacionComputers()" id= "btnGuardarComputadores">Guardar Computadores</button>
+    <button onclick="actualizarInformacionComputers()" id= "btnActualizarComputadores">Actualizar Computadores</button>
+    <h6> </h6> 
+    <div id="resultado2"><br></div> 
+    <br>
+
+    <h1> Clientes</h1>
+    <h3>*Aqui puedes ingresar los datos necesarios para crear y consultar Clientes*</h3>
+    <br>
+    <input type="text" id="CLemail" placeholder="email">
+    <input type="text" id="CLpassword" placeholder="password">
+    <input type="text" id="CLname" placeholder="name">
+    <input type="number" id="CLage" placeholder="age">  
+    <button onclick="traerInformacionClientes()" id= "btnConsultarClientes"> Consultar Clientes</button>
+    <button onclick="guardarInformacionClientes()"id= "btnGuardarClientes">Guardar Clientes</button>
+    <button onclick="actualizarInformacionClientes()"id= "btnActualizarClientes">Actualizar Clientes</button>
+    <h6> </h6> 
+    <div id="resultado3"><br></div>
+    <br>
+
+    <h1> Mensaje</h1>
+    <h3>*Aqui puedes ingresar los datos necesarios para crear y consultar Mensajes*</h3>
+    <br>
+    <input type="text" id="Mmensaje" placeholder="Texto del Mensaje">
+    <select name="select" id="selectcomputermen">
+      </select> 
+    <select name="select" id="selectclientmen">
+    </select> 
+    <button onclick="traerInformacionMensajes()" id="btnConsultarMensajes"> Consultar Mensajes</button>
+    <button onclick="guardarInformacionMensajes()" id=btnGuardarMensajes>Guardar Mensajes</button>
+    <button onclick="actualizarInformacionMensajes()" id="btnActualizarMensajes">Actualizar Mensajes</button>
+    <h6> </h6> 
+    <div id="resultado4"><br></div>
+    <br>
+
+    <h1> Reservación</h1>
+    <h3>*Aqui puedes ingresar los datos necesarios para crear y consultar Reservaciones*</h3>
+    <br>
+    <input type="date" id="R_Fecha_inicio" placeholder="Fecha de Inicio"></input>
+    <input type="date" id="R_Fecha_entrega" placeholder="Fecha de Entrega"></input>
+    <select name="select" id="selectidclientreser">
+      </select> 
+    <select name="select" id="selectidcomputereser">
+    </select> 
+    <button onclick="traerInformacionReservaciones()" id="btnGuardarReservaciones" > Consultar Reservaciones</button>
+    <button onclick="guardarInformacionReservaciones()" id="btnConsultarReservaciones">Guardar Reservaciones</button>
+    <button onclick="actualizarInformacionReservaciones()" id="btnActualizarReservaciones">Actualizar Reservacioness</button>
+    <h6> </h6> 
+    <div id="resultado5"><br></div>
+    <br>
+  
+</body>
+</html>

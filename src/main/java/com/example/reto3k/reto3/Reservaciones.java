@@ -16,35 +16,26 @@ import javax.persistence.Table;
  * @author karent_saenz
  */
 @Entity
-@Table(name = "reservation")
-public class Reservaciones implements Serializable  {
-    
-     @Id
+@Table(name ="reservation")
+public class Reservaciones implements Serializable {
+       @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idReservation;
     private Date startDate;
     private Date devolutionDate;
     private String status="created";
-    
+           
     @ManyToOne
     @JoinColumn(name = "id")
     @JsonIgnoreProperties("reservations")
     private Computer computer;
-
-    public Computer getComputer() {
-        return computer;
-    }
-
-    public void setComputer(Computer computer) {
-        this.computer = computer;
-    }
-
+    
     @ManyToOne
-    @JoinColumn(name = "idClient")
+    @JoinColumn(name = "idCliente")
     @JsonIgnoreProperties({"reservations","messages"})
     private Cliente client;
-
-    private String score; //depende el grupo
+    
+    private String score;
 
     public Integer getIdReservation() {
         return idReservation;
@@ -76,6 +67,14 @@ public class Reservaciones implements Serializable  {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Computer getComputer() {
+        return computer;
+    }
+
+    public void setComputer(Computer computer) {
+        this.computer = computer;
     }
 
     public Cliente getClient() {

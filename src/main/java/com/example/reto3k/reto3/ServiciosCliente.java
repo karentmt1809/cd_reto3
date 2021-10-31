@@ -48,6 +48,12 @@ public class ServiciosCliente {
                 if(client.getPassword()!=null){
                     e.get().setPassword(client.getPassword());
                 }
+                if(client.getEmail() !=null){
+                    e.get().setEmail(client.getEmail());
+                }
+                if(client.getAge() !=null){
+                    e.get().setAge(client.getAge());
+                }
                 metodosCrud.save(e.get());
                 return e.get();
             }else{
