@@ -2,10 +2,10 @@ package com.example.reto3k.reto3;
 
 public class ContadorClientes {
     private Long total;
-    private Client cliente;
-    public ContadorClientes(Long total, Client cliente) {
+    private Client client;
+    public ContadorClientes(Long total, Client client) {
         this.total = total;
-        this.cliente = cliente;
+        this.client = client;
     }
     public Long getTotal() {
         return total;
@@ -13,13 +13,12 @@ public class ContadorClientes {
     public void setTotal(Long total) {
         this.total = total;
     }
-    public Client getCliente() {
-        return cliente;
+    public Client getClient() {
+        return client;
     }
-    public void setCliente(Client cliente) {
-        this.cliente = cliente;
+    public void setClient(Client client) {
+        this.client = client;
     }
-   
-    
+
     
 }
