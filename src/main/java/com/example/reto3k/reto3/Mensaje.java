@@ -30,7 +30,7 @@ public class Mensaje implements Serializable {
     @ManyToOne
     @JoinColumn(name="clientId")
     @JsonIgnoreProperties({"messages", "reservations", "client"})
-    private Cliente client;
+    private Client client;
 
     public Computer getComputer() {
         return computer;
@@ -56,11 +56,11 @@ public class Mensaje implements Serializable {
         this.messageText = messageText;
     }
 
-    public Cliente getClient() {
+    public Client getClient() {
         return client;
     }
 
-    public void setClient(Cliente client) {
+    public void setClient(Client client) {
         this.client = client;
     }
     

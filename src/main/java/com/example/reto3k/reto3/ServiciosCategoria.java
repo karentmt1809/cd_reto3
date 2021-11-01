@@ -29,7 +29,7 @@ public class ServiciosCategoria {
             Optional<Categoria> categoria1 = metodosCrud.getCategoria(categoria.getId());
             if (categoria1.isEmpty()) {
                 return metodosCrud.save(categoria);
-            } else {
+            } else { 
                 return categoria;
             }
         } 

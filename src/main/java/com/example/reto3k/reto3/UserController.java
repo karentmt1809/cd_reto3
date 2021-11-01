@@ -9,7 +9,7 @@ import java.util.Collections;
 import java.util.Map;
  //Es un controlador rest
 @RestController
-public class UserController {
+public class UserController { 
     @GetMapping("/user") //Mapeo get
     public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {        
         return Collections.singletonMap("name", principal.getAttribute("name"));

@@ -62,7 +62,7 @@ public class Computer implements Serializable{
     private List<Mensaje> messages;
 
     @OneToMany(cascade = {CascadeType.PERSIST},mappedBy = "computer")
-    @JsonIgnoreProperties({"computer", "client"})
+    @JsonIgnoreProperties({"computer", "client"}) 
     /**
      * Atributo para referirse a una lista de tipo Reservaciones
      */

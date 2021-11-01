@@ -14,17 +14,17 @@ public class RepositorioCliente {
     @Autowired
     private InterfaceCliente crud1;
 
-    public List<Cliente> getAll(){
-        return (List<Cliente>) crud1.findAll();
+    public List<Client> getAll(){
+        return (List<Client>) crud1.findAll();
     }
-    public Optional<Cliente> getCliente(int id){
+    public Optional<Client> getCliente(int id){
         return crud1.findById(id);
     }
 
-    public Cliente save(Cliente cliente){
+    public Client save(Client cliente){
         return crud1.save(cliente);
     }
-    public void delete(Cliente cliente){
+    public void delete(Client cliente){
         crud1.delete(cliente);
     }
 }

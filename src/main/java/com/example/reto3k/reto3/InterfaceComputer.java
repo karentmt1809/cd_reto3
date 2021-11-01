@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository;
  * @author karent_saenz
  */
 public interface  InterfaceComputer  extends CrudRepository<Computer,Integer>{
-    
+     
 }

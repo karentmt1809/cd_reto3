@@ -65,7 +65,7 @@ public class ControladorReservaciones {
      public List<Reservaciones> getReservasTiempo (@PathVariable("dateOne")String dateOne, @PathVariable("dateTwo")String dateTwo ){
          return servicio.reporteTiempoServicio(dateOne, dateTwo);
      }
-     
+      
      @GetMapping("/report-clients")
      public List<ContadorClientes> getClientes(){
          return servicio.reporteClientesServicio();

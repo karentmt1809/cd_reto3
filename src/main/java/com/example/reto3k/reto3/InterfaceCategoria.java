@@ -7,5 +7,5 @@ import org.springframework.data.repository.CrudRepository;
  * @author karent_Saenz
  */
 public interface InterfaceCategoria extends CrudRepository<Categoria,Integer>{
-    
+     
 }

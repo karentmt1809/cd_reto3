@@ -19,7 +19,7 @@ public class RepositorioCategoria {
     public Optional<Categoria> getCategoria(int id){
         return crud.findById(id);
     }
-
+ 
     public Categoria save(Categoria Categoria){
         return crud.save(Categoria);
     }

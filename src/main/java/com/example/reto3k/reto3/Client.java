@@ -18,7 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  */
 @Entity
 @Table(name = "client")
-public class Client implements Serializable {
+public class Client implements Serializable { 
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

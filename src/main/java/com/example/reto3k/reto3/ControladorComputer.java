@@ -24,7 +24,7 @@ import org.springframework.http.HttpStatus;
 @RequestMapping("/api/Computer")
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
 
-public class ControladorComputer {
+public class ControladorComputer { 
     @Autowired
     private ServiciosComputer servicio;
     @GetMapping("/all")

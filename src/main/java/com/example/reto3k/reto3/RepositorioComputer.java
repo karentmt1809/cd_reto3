@@ -22,7 +22,7 @@ public class RepositorioComputer {
 
     public Optional<Computer> getComputer(int id){
         return crud.findById(id);
-    }
+    } 
 
     public Computer save(Computer computer) {
         return crud.save(computer);

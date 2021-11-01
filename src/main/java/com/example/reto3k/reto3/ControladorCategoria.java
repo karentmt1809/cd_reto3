@@ -25,7 +25,7 @@ import org.springframework.http.HttpStatus;
 @CrossOrigin(origins = "*", methods= {RequestMethod.GET,RequestMethod.POST,RequestMethod.PUT,RequestMethod.DELETE})
 
 public class ControladorCategoria {
-    @Autowired
+    @Autowired 
     private ServiciosCategoria servicio;
     @GetMapping("/all")
     public List<Categoria> getCategoria(){
