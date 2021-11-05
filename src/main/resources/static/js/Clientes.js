@@ -8,7 +8,7 @@ var idClient=0;
 
 async function traerInformacionClientes(){
     $.ajax({
-        url:"http://localhost:8080/api/Client/all",
+        url:"http://144.22.58.14:80800/api/Client/all",
         type:"GET",
         datatype:"JSON",
         success:function(respuesta){
@@ -23,7 +23,7 @@ async function traerInformacionClientes(){
 
 function pintarRespuestaClientes(respuesta){
 
-    var myTable =`<table border="1">
+    var myTable =`<table border="1" class="table table-dark table-striped">
     <tr>
       <th>Email</th>
       <th>Contraseña</th>
@@ -37,8 +37,8 @@ function pintarRespuestaClientes(respuesta){
         <td>${respuesta[i].password}</td>
         <td>${respuesta[i].name}</td>
         <td>${respuesta[i].age}</td>
-        <td><button onclick="editarRegistroClientes(${respuesta[i].idClient})">Editar</td>
-        <td><button onclick="borrarClientes(${respuesta[i].idClient})">Borrar</td> 
+        <td><button onclick="editarRegistroClientes(${respuesta[i].idClient})" class="btn btn-outline-success">Editar</td>
+        <td><button onclick="borrarClientes(${respuesta[i].idClient})" class="btn btn-outline-danger">Borrar</td> 
 
     </tr>`;
     }
@@ -47,43 +47,47 @@ function pintarRespuestaClientes(respuesta){
 }
 
 function guardarInformacionClientes(){
-    let var4 = {
-        email:$("#CLemail").val(),
-        password:$("#CLpassword").val(),
-        name:$("#CLname").val(),
-        age:$("#CLage").val(),
+    if($("#CLemail").val()== "" || $("#CLpassword").val()=="" 
+            || $("#CLname").val()==""|| $("#CLage").val()==""){
+        alert("¡¡ ERROR !! Todos los campos son Obligatorios")
+    }else{ 
+        let var4 = {
+            email:$("#CLemail").val(),
+            password:$("#CLpassword").val(),
+            name:$("#CLname").val(),
+            age:$("#CLage").val(),
         };
-      
-        $.ajax({
-        type:'POST',
-        contentType: "application/json; charset=utf-8",
-        dataType: 'JSON',
-        data: JSON.stringify(var4),
         
-        url:"http://localhost:8080/api/Client/save",
-       
+            $.ajax({
+            type:'POST',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'JSON',
+            data: JSON.stringify(var4),
+            
+            url:"http://144.22.58.14:8080/api/Client/save",
         
-        success:function(response) {
-            console.log(response);
-            console.log("Se guardo correctamente");
-            alert("Se guardo correctamente");
-            traerInformacionClientes();
-    
-        },
+            
+            success:function(response) {
+                console.log(response);
+                console.log("Se guardo correctamente");
+                alert("Se guardo correctamente");
+                traerInformacionClientes();
         
-        error: function(jqXHR, textStatus, errorThrown) {
-              window.location.reload()
-            alert("No se guardo correctamente");
-    
-    
-        }
-        });
+            },
+            
+            error: function(jqXHR, textStatus, errorThrown) {
+                window.location.reload()
+                alert("No se guardo correctamente");
+        
+        
+            }
+            });
 
-        $("#CLemail").val(""),
-        $("#CLpassword").val(""),
-        $("#CLname").val(""),
-        $("#CLage").val("")
-
+            $("#CLemail").val(""),
+            $("#CLpassword").val(""),
+            $("#CLname").val(""),
+            $("#CLage").val("")
+    }
 }
 
 function borrarClientes(clienteId) {
@@ -94,7 +98,7 @@ function borrarClientes(clienteId) {
     let datosPeticion=JSON.stringify(datos);
 
     $.ajax({
-        url:"http://localhost:8080/api/Client/"+clienteId ,
+        url:"http://144.22.58.14:8080/api/Client/"+clienteId ,
         type:"DELETE",
         data:datosPeticion,
         contentType:"application/JSON",
@@ -112,7 +116,10 @@ function borrarClientes(clienteId) {
     
 }
 
+$("Retos").ready(function(){
+    $("#btnActualizarClientes").hide();
 
+})
 
 async function editarRegistroClientes(clienteId) {
     $("#btnActualizarClientes").show();
@@ -125,7 +132,7 @@ async function editarRegistroClientes(clienteId) {
     idClient= clienteId;
     console.log(idClient); 
     $.ajax({
-        url:"http://localhost:8080/api/Client/" + clienteId,
+        url:"http://144.22.58.14:8080/api/Client/" + clienteId,
         type:'GET',
         dataType:'json',
 
@@ -140,7 +147,7 @@ async function editarRegistroClientes(clienteId) {
         },
 
         error:function(xhr,status){
-            console.log(status);
+            console.log(status); 
         }
 
     });
@@ -151,68 +158,43 @@ async function editarRegistroClientes(clienteId) {
 }
  
 async function actualizarInformacionClientes(){
-    console.log(idClient)
+    if($("#CLemail").val()== "" || $("#CLpassword").val()=="" 
+            || $("#CLname").val()==""|| $("#CLage").val()==""){
+        alert("¡¡ ERROR !! Todos los campos son Obligatorios")
+    }else{ 
 
-    let var4 = {
-        "idClient":idClient,  
-        "name":$("#CLname").val(),
-        "email":$("#CLemail").val(),
-        "password":$("#CLpassword").val(),
-        "age:":parseInt($("#CLage").val()),
-        };
-        console.log(var4)
-        $.ajax({
-        type:'PUT',
-        contentType: "application/json; charset=utf-8",
-        dataType: 'JSON',
-        data: JSON.stringify(var4),
+        let var4 = {
+            "idClient":idClient,  
+            "name":$("#CLname").val(),
+            "email":$("#CLemail").val(),
+            "password":$("#CLpassword").val(),
+            "age:":parseInt($("#CLage").val()),
+            };
+            console.log(var4)
+            $.ajax({
+            type:'PUT',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'JSON',
+            data: JSON.stringify(var4),
+            
+            url:"http://144.22.58.14:8080/api/Client/update",
         
-        url:"http://localhost:8080/api/Client/update",
-       
+            
+            success:function(response) {
+                console.log(response);
+                console.log("Se actualizó correctamente");
+                alert("Se actualizó  correctamente");
+                traerInformacionClientes();
         
-        success:function(response) {
-            console.log(response);
-            console.log("Se actualizó correctamente");
-            alert("Se actualizó  correctamente");
-            traerInformacionClientes();
-    
-        },
+            },
+            
+            error: function(jqXHR, textStatus, errorThrown) {
+                window.location.reload()
+                alert("No se actualizó correctamente");
         
-        error: function(jqXHR, textStatus, errorThrown) {
-              window.location.reload()
-            alert("No se actualizó correctamente");
-    
-    
-        }
-        });
-
-    // var datos={
-    //     id:idClient,
-    //     name:$("#CLname").val(),
-    //     email:$("#CLemail").val(),
-    //     password:$("#CLpassword").val(),
-    //     age:parseInt( $("#CLage").val())
-    //     }
-
-    // let datosPeticion=JSON.stringify(datos);
-    //     console.log(datos);
-    // $.ajax({
-    //     url:"http://localhost:8080/api/Client/update",
-    //     data:datosPeticion,
-    //     type:'PUT',
-    //     contentType:"application/JSON",
-
-    //     success:function(respuesta){
-    //         console.log(datos);
-    //         console.log("Actualizado");
-    //         alert("Registro actualizado con exito");
-    //         traerInformacionClientes();
-    //     },
-
-    //     error:function(xhr,status){
-    //         console.log(status);
-    //     }
-    // });
+        
+            }
+            });
 
     $("#btnActualizarClientes").hide();
     $("#btnConsultarClientes").show();
@@ -221,7 +203,8 @@ async function actualizarInformacionClientes(){
     $("#CLemail").val(""),
     $("#CLpassword").val(""),
     $("#CLage").val("")
-    
+
+        }
     
 
 }

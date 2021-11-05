@@ -3,9 +3,10 @@ traerInformacionComputers();
 traerInformacionClientes();
 var idclientepasar =0;
 var reservaciones = [];
+var idCate=0;
 async function traerInformacionReservaciones(){
     $.ajax({
-        url:"http://localhost:8080/api/Reservation/all",
+        url:"http://144.22.58.14:8080/api/Reservation/all",
         type:"GET",
         datatype:"JSON",
         success:function(respuesta){
@@ -16,12 +17,13 @@ async function traerInformacionReservaciones(){
 }
 
 function pintarRespuestaReservaciones(respuesta){
-    var myTable =`<table border="1">
+    var myTable =`<table border="1" class="table table-dark table-striped">
     <tr>
       <th>Fecha Inicio</th>
       <th>Fecha Entrega</th>
       <th>Computador</th>
       <th>Cliente</th>
+      <th>Estado</th>
       <th colspan="2">Acciones</th>
     </tr>`;
 
@@ -33,8 +35,9 @@ function pintarRespuestaReservaciones(respuesta){
             <td>${respuesta[i].devolutionDate}</td> 
             <td>${respuesta[i].computer.name}</td> 
             <td>${respuesta[i].client.name}</td> 
-            <td><button onclick="editarRegistroReservaciones(${respuesta[i].idReservation})">Editar</td>
-            <td><button onclick="borrarReservaciones(${respuesta[i].idReservation})">Borrar</td>         
+            <td>${respuesta[i].status}</td> 
+            <td><button onclick="editarRegistroReservaciones(${respuesta[i].idReservation})"class="btn btn-outline-success">Editar</td>
+            <td><button onclick="borrarReservaciones(${respuesta[i].idReservation})"class="btn btn-outline-danger">Borrar</td>         
         </tr>
     `;
     }
@@ -58,42 +61,47 @@ function psarDatosComputerReser(respuesta){
 
 
 function guardarInformacionReservaciones(){
-    
-    let var3 = {"startDate":$("#R_Fecha_inicio").val(),
-                "devolutionDate":$("#R_Fecha_entrega").val(),
-                "client":{"idClient":$("#selectidclientreser").val()}, 
-                "computer":{"id":$("#selectidcomputereser").val()} 
+    if($("#R_Fecha_inicio").val()== "" || $("#R_Fecha_entrega").val()=="" 
+            || $("#selectstatus").val()=="" || $("#selectidclientreser").val()==""
+            || $("#selectidcomputereser").val()==""){
+        alert("¡¡ ERROR !! Todos los campos son Obligatorios")
+    }else{ 
+        let var3 = {"startDate":$("#R_Fecha_inicio").val(),
+                    "devolutionDate":$("#R_Fecha_entrega").val(),
+                    "status":$("#selectstatus").val(),
+                    "client":{"idClient":$("#selectidclientreser").val()}, 
+                    "computer":{"id":$("#selectidcomputereser").val()} 
+                }
+            console.log(var3)
+            $.ajax({
+            type:'POST',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'JSON',
+            data: JSON.stringify(var3),
+            
+            url:"http://144.22.58.14:8080/api/Reservation/save",
+        
+            
+            success:function(response) {
+                console.log(response);
+                console.log("Se guardo correctamente");
+                alert("Se guardo correctamente");
+                traerInformacionReservaciones();
+        
+            },
+            
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert("No se guardo correctamente");
+        
+        
             }
-        console.log(var3)
-        $.ajax({
-        type:'POST',
-        contentType: "application/json; charset=utf-8",
-        dataType: 'JSON',
-        data: JSON.stringify(var3),
-        
-        url:"http://localhost:8080/api/Reservation/save",
-       
-        
-        success:function(response) {
-            console.log(response);
-            console.log("Se guardo correctamente");
-            alert("Se guardo correctamente");
-            traerInformacionReservaciones();
-    
-        },
-        
-        error: function(jqXHR, textStatus, errorThrown) {
-            alert("No se guardo correctamente");
-    
-    
-        }
-        });
+            });
 
-        $("#selectidcomputereser").val(), 
-        $("#selectidclientreser").val(""),
-        $("#R_Fecha_inicio").val(""),
-        $("#R_Fecha_entrega").val("")
-        
+            $("#selectidcomputereser").val(), 
+            $("#selectidclientreser").val(""),
+            $("#R_Fecha_inicio").val(""),
+            $("#R_Fecha_entrega").val("")
+    }  
 
 }
 
@@ -105,7 +113,7 @@ function borrarReservaciones(reservationId) {
     let datosPeticion=JSON.stringify(datos);
 
     $.ajax({
-        url:"http://localhost:8080/api/Reservation/"+reservationId ,
+        url:"http://144.22.58.14:8080/api/Reservation/"+reservationId ,
         type:"DELETE",
         data:datosPeticion,
         contentType:"application/JSON",
@@ -122,6 +130,10 @@ function borrarReservaciones(reservationId) {
     
 }
 
+$("Retos").ready(function(){
+    $("#btnActualizarReservaciones").hide(); 
+
+})
 
 async function editarRegistroReservaciones(reservationId) {
     $("#btnActualizarReservaciones").show();
@@ -129,21 +141,18 @@ async function editarRegistroReservaciones(reservationId) {
     $("#btnGuardarReservaciones").hide();
     $("#selectidcomputereser").hide(), 
     $("#selectidclientreser").hide()
-    // $("#btnConsultarC").hide();
-    // $("#numIdC").prop('disabled',true);
-    // $("#numIdC").focus(); 
+
     var datos={
         id:reservationId
     }
     idCate= reservationId;
     console.log(reservationId); 
     $.ajax({
-        url:"http://localhost:8080/api/Reservation/" + reservationId,
+        url:"http://144.22.58.14:8080/api/Reservation/" + reservationId,
         type:'GET',
         dataType:'json',
 
         success:function(respuesta){
-            // var items=respuesta.items;
             
             console.log(respuesta);
             
@@ -161,11 +170,14 @@ async function editarRegistroReservaciones(reservationId) {
             
             respuesta.startDate= fechainicio;
             respuesta.devolutionDate=fechafin;
-            reservaciones = respuesta; 
+            
 
             $("#R_Fecha_inicio").val(respuesta.startDate),
-            $("#R_Fecha_entrega").val(respuesta.devolutionDate)
-
+            $("#R_Fecha_entrega").val(respuesta.devolutionDate),
+            $("#selectstatus").val(respuesta.status)
+        
+            reservaciones = respuesta; 
+            
         },
 
         error:function(xhr,status){
@@ -181,15 +193,20 @@ async function editarRegistroReservaciones(reservationId) {
 
 
 function actualizarInformacionReservaciones(){
-
+    if($("#R_Fecha_inicio").val()== "" || $("#R_Fecha_entrega").val()=="" 
+    || $("#selectstatus").val()=="" || $("#selectidclientreser").val()==""
+    || $("#selectidcomputereser").val()==""){
+        alert("¡¡ ERROR !! Todos los campos son Obligatorios")
+    
+    }else{
 
     let var5 = {
 
                 "idReservation":idCate,
                 "startDate":$("#R_Fecha_inicio").val(),
-                "devolutionDate":$("#R_Fecha_entrega").val(), 
-                "client": reservaciones.client, 
-                "computer": reservaciones.computer
+                "devolutionDate":$("#R_Fecha_entrega").val(),
+                "status":$("#selectstatus").val()
+                
             }
             console.log(var5)
         $.ajax({
@@ -198,11 +215,11 @@ function actualizarInformacionReservaciones(){
         dataType: 'JSON',
         data: JSON.stringify(var5),
         
-        url:"http://localhost:8080/api/Reservation/update",
+        url:"http://144.22.58.14:8080/api/Reservation/update",
        
         
         success:function(reservaciones) {
-            console.log(reservaciones);
+            console.log(reservaciones); 
             console.log("Se actualizó correctamente");
             alert("Se actualizó correctamente");
             traerInformacionReservaciones();
@@ -217,14 +234,14 @@ function actualizarInformacionReservaciones(){
         }
         });
 
-    $("#btnActualizarReservaciones").hide();
-    $("#btnConsultarReservaciones").show();
-    $("#btnGuardarReservaciones").show(),
-    $("#selectidcomputereser").show(), 
-    $("#selectidclientreser").show(),
-    $("#R_Fecha_inicio").val(""),
-    $("#R_Fecha_entrega").val("")
-    
+        $("#btnActualizarReservaciones").hide();
+        $("#btnConsultarReservaciones").show();
+        $("#btnGuardarReservaciones").show(),
+        $("#selectidcomputereser").show(), 
+        $("#selectidclientreser").show(),
+        $("#R_Fecha_inicio").val(""),
+        $("#R_Fecha_entrega").val("")
+    }
 
 }
 

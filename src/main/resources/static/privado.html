@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html >
 <head>
-  
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Retos</title> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-    <!-- <base href="/"/>
     <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
-    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
-      -->
+
+    
     <script type="text/javascript" src="js/Categorias.js"></script>
     <script type="text/javascript" src="js/Computadores.js"></script> 
     <script type="text/javascript" src="js/Clientes.js"></script>
@@ -16,20 +16,26 @@
     <script type="text/javascript" src="js/Reservaciones.js"></script> 
 
 
-    <title>Reto_4</title>
+    
   </head>
   <body bgcolor="#CEC0FF">
+    <div class="bg-success p-4 text-dark bg-opacity-50">
+    <nav class="navbar navbar-light navbar-expand-md bg-light justify-content-between">
+      <div class="container-fluid">
+          <a href="/" class="navbar-brand mx-auto d-block text-center order-0 order-md-1 w-25"> 
+            Reto 4 :Alquiler de Computadores
+            <br>
+            Karent Tatiana Saenz Peña</a>
+          </div>
+      </div>
+      </nav>
+      </div>
+       
 
-    <br>
-    <h1> 
-        <center> Reto 4 :Alquiler de Computadores</center>
-        <br>
-        <center> Karent Tatiana Saenz Peña</center>
-    </h1>
-    <br>
-    
-    <div>
-      Bienvenido<span id="user"></span> este recurso es privado y solo se puede ver porque está autenticado. <a href="privado2.html"> Vaya a privado 2</a>
+<div class="bg-success p-2 text-dark bg-opacity-10">
+<br><br><br> 
+  <div>
+      Bienvenido:    <span id="user"></span>     este recurso es privado y solo se puede ver porque está autenticado. 
   </div>
 
   <script type="text/javascript">    
@@ -41,77 +47,224 @@
   <br>
   <br>
     <h1> Categorias</h1>
-    <h3>*Aqui puedes ingresar los datos necesarios para crear y consultar Categorias*</h3>
-    <br>
-    <input type="text" id="Cname" placeholder="name">
-    <input type="text" id="Cdescription" placeholder="description">
-    <button onclick="traerInformacionCategoriasCom()" id= "btnConsultarCategorias" > Consultar Categorias</button>
-    <button onclick="guardarInformacionCategorias()" id= "btnGuardarCategorias">Guardar Categorias</button>
-    <button onclick="actualizarInformacionCategorias()" id= "btnActualizarCategorias">Actualizar Categorias</button>
-    <h6> </h6> 
-    <div id="resultado1"><br></div>
+    <h3>*Aqui puedes ingresar los datos necesarios para crear,consultar, actualualizar y borrar Categorias*</h3>
     <br>
 
+    <div class="row g-3 container" >
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Name" aria-label="Name" id="Cname" >
+      </div>
+      <div class="col"> 
+       <input type="text" class="form-control" placeholder="Description" aria-label="Description" id="Cdescription">
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-outline-info" onclick="traerInformacionCategoriasCom()" id= "btnConsultarCategorias" >Consultar Categorias</button>
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-outline-info" onclick="guardarInformacionCategorias()" id= "btnGuardarCategorias" >Guardar Categorias</button>
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-outline-info" onclick="actualizarInformacionCategorias()" id= "btnActualizarCategorias"  >Actualizar Categorias</button>
+      </div><br>
+    </div>
+    <br>
+    <div class="row g-3 container">
+      <div class="col"  id="resultado1">
+
+      </div>
+    </div>
+    
+    <br><br> 
     <h1> Computadores</h1>
-    <h3>*Aqui puedes ingresar los datos necesarios para crear y consultar Computadores*</h3>
-    <br>
-    <input type="text" id="Comname" placeholder="name">
-    <input type="text" id="Combrand" placeholder="brand">
-    <input type="number" id="Comyear" placeholder="year">
-    <input type="text" id="Comdescription" placeholder="description">
-    <select name="select" id="selectcategoriacom">
-      </select>  
-    <button onclick="traerInformacionComputers()" id= "btnConsultarComputadores"> Consultar Computadores</button>
-    <button onclick="guardarInformacionComputers()" id= "btnGuardarComputadores">Guardar Computadores</button>
-    <button onclick="actualizarInformacionComputers()" id= "btnActualizarComputadores">Actualizar Computadores</button>
-    <h6> </h6> 
-    <div id="resultado2"><br></div> 
+    <h3>*Aqui puedes ingresar los datos necesarios para crear,consultar, actualualizar y borrar Computadores*</h3>
     <br>
 
+    <div class="row g-3 container" >
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Name" aria-label="Name" id="Comname" >
+      </div>
+      <div class="col">
+        <input type="text" class="form-control" placeholder="Brand" aria-label="Brand" id="Combrand">
+      </div>
+      <div class="col">
+        <input type="number" id="Comyear" placeholder="Year" class="form-control" aria-label="Year">
+      </div>
+      <div class="col">
+        <input type="text" id="Comdescription" placeholder="Description" class="form-control" aria-label="Description">
+      </div>
+      <div class="col">
+        <select name="select" id="selectcategoriacom" class="form-control" aria-label="Category">
+        </select> 
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-outline-info"onclick="traerInformacionComputers()" id= "btnConsultarComputadores" >Consultar Computadores</button>
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-outline-info" onclick="guardarInformacionComputers()" id= "btnGuardarComputadores" >Guardar Computadores</button>
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-outline-info" onclick="actualizarInformacionComputers()" id= "btnActualizarComputadores"  >Actualizar Computadores</button>
+      </div><br>
+    </div>
+    <br>
+    <div class="row g-3 container">
+      <div class="col"  id="resultado2">
+      </div>
+    </div>
+
+    <br><br> 
     <h1> Clientes</h1>
-    <h3>*Aqui puedes ingresar los datos necesarios para crear y consultar Clientes*</h3>
-    <br>
-    <input type="text" id="CLemail" placeholder="email">
-    <input type="text" id="CLpassword" placeholder="password">
-    <input type="text" id="CLname" placeholder="name">
-    <input type="number" id="CLage" placeholder="age">  
-    <button onclick="traerInformacionClientes()" id= "btnConsultarClientes"> Consultar Clientes</button>
-    <button onclick="guardarInformacionClientes()"id= "btnGuardarClientes">Guardar Clientes</button>
-    <button onclick="actualizarInformacionClientes()"id= "btnActualizarClientes">Actualizar Clientes</button>
-    <h6> </h6> 
-    <div id="resultado3"><br></div>
+    <h3>*Aqui puedes ingresar los datos necesarios para crear,consultar, actualualizar y borrar Clientes*</h3>
     <br>
 
+    <div class="row g-3 container" >
+      <div class="col">
+        <input type="text" id="CLemail" placeholder="Email" class="form-control" aria-label="Email">
+
+      </div>
+      <div class="col">
+        <input type="text" id="CLpassword" placeholder="Password"aria-label="Password" class="form-control" >
+
+      </div>
+      <div class="col">
+        <input type="text" id="CLname" placeholder="Name" class="form-control" aria-label="Name">
+        
+      </div>
+      <div class="col">
+        <input type="number" id="CLage" placeholder="Age" class="form-control" aria-label="Age">
+      </div>
+      <div class="col">
+        <button onclick="traerInformacionClientes()" id= "btnConsultarClientes" class="btn btn-outline-info" type="button"> Consultar Clientes</button>
+
+      </div>
+      <div class="col">
+        <button onclick="guardarInformacionClientes()"id= "btnGuardarClientes" class="btn btn-outline-info" type="button">Guardar Clientes</button>
+      </div>
+      <div class="col">
+        <button onclick="actualizarInformacionClientes()"id= "btnActualizarClientes" class="btn btn-outline-info" type="button">Actualizar Clientes</button>
+      </div><br>
+    </div>
+    <br>
+    <div class="row g-3 container">
+      <div class="col"  id="resultado3">
+      </div>
+    </div>
+
+  
+    <br><br> 
     <h1> Mensaje</h1>
-    <h3>*Aqui puedes ingresar los datos necesarios para crear y consultar Mensajes*</h3>
-    <br>
-    <input type="text" id="Mmensaje" placeholder="Texto del Mensaje">
-    <select name="select" id="selectcomputermen">
-      </select> 
-    <select name="select" id="selectclientmen">
-    </select> 
-    <button onclick="traerInformacionMensajes()" id="btnConsultarMensajes"> Consultar Mensajes</button>
-    <button onclick="guardarInformacionMensajes()" id=btnGuardarMensajes>Guardar Mensajes</button>
-    <button onclick="actualizarInformacionMensajes()" id="btnActualizarMensajes">Actualizar Mensajes</button>
-    <h6> </h6> 
-    <div id="resultado4"><br></div>
+    <h3>*Aqui puedes ingresar los datos necesarios para crear,consultar, actualualizar y borrar Mensajes*</h3>
     <br>
 
+    <div class="row g-3 container" >
+      <div class="col">
+        <input type="text" id="Mmensaje" placeholder="Texto del Mensaje" class="form-control" aria-label="Texto del Mensaje">
+
+      </div>
+      <div class="col">
+        <select name="select" id="selectcomputermen"  aria-label="Password" class="form-control"aria-label="Computer" class="form-control"
+        >
+        </select>
+
+      </div>
+      <div class="col">
+        <select name="select" id="selectclientmen"  class="form-control"aria-label="CLiente" class="form-control">
+        </select> 
+
+        
+      </div>
+      <div class="col">
+        <button onclick="traerInformacionMensajes()" id="btnConsultarMensajes" class="btn btn-outline-info" type="button"> Consultar Mensajes</button>
+      </div>
+      <div class="col">
+        <button onclick="guardarInformacionMensajes()" id=btnGuardarMensajes class="btn btn-outline-info" type="button">Guardar Mensajes</button>
+      </div>
+      <div class="col">
+        <button onclick="actualizarInformacionMensajes()" id="btnActualizarMensajes" class="btn btn-outline-info" type="button">Actualizar Mensajes</button>
+        
+      </div><br>
+    </div>
+    <br>
+    <div class="row g-3 container">
+      <div class="col"  id="resultado4">
+      </div>
+    </div>
+
+    <br><br> 
     <h1> Reservación</h1>
-    <h3>*Aqui puedes ingresar los datos necesarios para crear y consultar Reservaciones*</h3>
+    <h3>*Aqui puedes ingresar los datos necesarios para crear,consultar, actualualizar y borrar Reservaciones*</h3>
     <br>
-    <input type="date" id="R_Fecha_inicio" placeholder="Fecha de Inicio"></input>
-    <input type="date" id="R_Fecha_entrega" placeholder="Fecha de Entrega"></input>
-    <select name="select" id="selectidclientreser">
-      </select> 
-    <select name="select" id="selectidcomputereser">
-    </select> 
-    <button onclick="traerInformacionReservaciones()" id="btnGuardarReservaciones" > Consultar Reservaciones</button>
-    <button onclick="guardarInformacionReservaciones()" id="btnConsultarReservaciones">Guardar Reservaciones</button>
-    <button onclick="actualizarInformacionReservaciones()" id="btnActualizarReservaciones">Actualizar Reservacioness</button>
-    <h6> </h6> 
-    <div id="resultado5"><br></div>
+
+    <div class="row g-3 container" >
+      <div class="col">
+        <input type="date" id="R_Fecha_inicio" placeholder="Fecha de Inicio" class="form-control" aria-label="Fecha de Inicio"></input>
+
+      </div>
+      <div class="col">
+        <input type="date" id="R_Fecha_entrega" placeholder="Fecha de Entrega" aria-label="Password" class="form-control"></input>
+        
+
+      </div>
+      <div class="col">
+        <select name="select" id="selectidclientreser" aria-label="CLiente" class="form-control">
+        </select> 
+        
+      </div>
+      <div class="col">
+        <select name="select" id="selectidcomputereser" aria-label="CLiente" class="form-control">
+        </select> 
+        
+      </div>
+      <div class="col">
+        <label  id="lblestado" >Estado</label>
+      </div>
+      <div class="col">
+        <select name="select" id="selectstatus" aria-label="CLiente" class="form-control">
+          <option value="completed">completed</option>
+          <option value="cancelled" selected>cancelled</option>
+        </select>
+      </div>
+
+      <div class="col">
+        <button onclick="traerInformacionReservaciones()" id="btnGuardarReservaciones" class="btn btn-outline-info" type="button"> Consultar Reservaciones</button>
+      </div>
+      <div class="col">
+        <button onclick="guardarInformacionReservaciones()" id="btnConsultarReservaciones" class="btn btn-outline-info" type="button">Guardar Reservaciones</button>
+        
+      </div>
+      <div class="col">
+        <button onclick="actualizarInformacionReservaciones()" id="btnActualizarReservaciones" class="btn btn-outline-info" type="button">Actualizar Reservacioness</button>
+        
+      </div><br>
+    </div>
     <br>
+    <div class="row g-3 container">
+      <div class="col"  id="resultado5">
+      </div>
+    </div>
+    
+    
+    <div class="card text-center">
+      <div class="card-header">
+        <div class="bg-success p-2 text-white bg-opacity-75">
+        ¿Deseas tener más información de esta tienda?
+      </div>
+      </div>
+      <div class="card-body">
+        <div class="bg-success p-2 text-dark bg-opacity-25">
+        <h5 class="card-title">Conoce nuestros principales reportes</h5>
+        <p class="card-text">En ellos podrás saber más sobre nuestra actividad</p>
+        <a href="reportes.html" class="btn btn-success">Click Aqui</a>
+      </div>
+      </div>
+      <div class="card-footer text-muted">
+        <div class="bg-success p-2 text-white bg-opacity-75">
+        ¡¡Gracias por tu visita!!
+      </div>
+      </div>
+    </div>
+
+  </div>
   
 </body>
 </html>

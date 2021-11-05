@@ -11,27 +11,40 @@
     <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <h1>Alquiler de Computadores API</h1>
-   <div class="container unauthenticated">
-       Para iniciar con GitHub <a href="/oauth2/authorization/github">Click Aquí</a>
+    <div class="bg-success p-4 text-dark bg-opacity-25">
+        <nav class="navbar navbar-light navbar-expand-md bg-light justify-content-between">
+          <div class="container-fluid">
+              <a href="/" class="navbar-brand mx-auto d-block text-center order-0 order-md-1 w-25"> 
+                <h1>Alquiler de Computadores API</h1>
+                <br>
+                Karent Tatiana Saenz Peña</a>
+            </div>
+          
+        </nav>
+        
 
-   </div> 
+        <br><br><br>
+        <div class="container unauthenticated">
+            Para iniciar con GitHub <a href="/oauth2/authorization/github">Click Aquí</a>
 
-   <div class="container authenticated" style="display: none">
-       Autenticado como: <span id="user"></span>  
+        </div> 
 
-    </div> 
+        <div class="container authenticated" style="display: none">
+            Autenticado como: <span id="user"></span>  
 
-    <script type="text/javascript">    
-        $.get("/user", function (data) { 
-            $("#user").html(data.name); 
-            $(".unauthenticated").hide() 
-            $(".authenticated").show()  
-        });
-    </script>
-    
-    
+            </div> 
 
+            <script type="text/javascript">    
+                $.get("/user", function (data) { 
+                    $("#user").html(data.name); 
+                    $(".unauthenticated").hide() 
+                    $(".authenticated").show()  
+                });
+            </script>
+            
+        
 
-</body>
+    </div>
+
+   </body>
 </html>

@@ -5,7 +5,7 @@ traerInformacionClientes();
  var computadores=[];
 async function traerInformacionMensajes(){
     $.ajax({
-        url:"http://localhost:8080/api/Message/all",
+        url:"http://144.22.58.14:8080/api/Message/all",
         type:"GET",
         datatype:"JSON",
         success:function(respuesta){
@@ -16,7 +16,7 @@ async function traerInformacionMensajes(){
 }
 
 function pintarRespuestaMensajes(respuesta){
-    var myTable =`<table border="1">
+    var myTable =`<table border="1" class="table table-dark table-striped">
     <tr>
       <th>Mensaje</th>
       <th>Computador</th>
@@ -30,8 +30,8 @@ function pintarRespuestaMensajes(respuesta){
         <td>${respuesta[i].messageText}</td>
         <td>${respuesta[i].computer.name}</td> 
         <td>${respuesta[i].client.name}</td> 
-        <td><button onclick="editarRegistroMensajes(${respuesta[i].idMessage})">Editar</td>
-        <td><button onclick="borrarMensajes(${respuesta[i].idMessage})">Borrar</td>         
+        <td><button onclick="editarRegistroMensajes(${respuesta[i].idMessage})" class="btn btn-outline-success">Editar</td>
+        <td><button onclick="borrarMensajes(${respuesta[i].idMessage})"class="btn btn-outline-danger">Borrar</td>         
         </tr>
             `;
     }
@@ -54,40 +54,43 @@ function psarDatosClientesMen(respuesta){
      }
 }
 function guardarInformacionMensajes(){
-    
-    let var3 = { "messageText":$("#Mmensaje").val(),
-                "client":{"idClient":$("#selectclientmen").val()}, 
-                "computer":{"id":$("#selectcomputermen").val()} 
+    if($("#Mmensaje").val()== "" || $("#selectclientmen").val()=="" 
+            || $("#selectcomputermen").val()==""){
+        alert("¡¡ ERROR !! Todos los campos son Obligatorios")
+    }else{ 
+        let var3 = { "messageText":$("#Mmensaje").val(),
+                    "client":{"idClient":$("#selectclientmen").val()}, 
+                    "computer":{"id":$("#selectcomputermen").val()} 
             }
-        $.ajax({
-        type:'POST',
-        contentType: "application/json; charset=utf-8",
-        dataType: 'JSON',
-        data: JSON.stringify(var3),
+            $.ajax({
+            type:'POST',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'JSON',
+            data: JSON.stringify(var3),
+            
+            url:"http://144.22.58.14:8080/api/Message/save",
         
-        url:"http://localhost:8080/api/Message/save",
-       
+            
+            success:function(response) {
+                    console.log(response);
+                console.log("Se guardo correctamente");
+                alert("Se guardo correctamente");
+                traerInformacionMensajes();
         
-        success:function(response) {
-                console.log(response);
-            console.log("Se guardo correctamente");
-            alert("Se guardo correctamente");
-            traerInformacionMensajes();
-    
-        },
+            },
+            
+            error: function(jqXHR, textStatus, errorThrown) {
+                window.location.reload()
+                alert("No se guardo correctamente");
         
-        error: function(jqXHR, textStatus, errorThrown) {
-              window.location.reload()
-            alert("No se guardo correctamente");
-    
-    
-        }
-        });
+        
+            }
+            });
 
-        $("#Mmensaje").val(""),
-        $("#selectclientmen").val(""),
-        $("#selectcomputermen").val("")
-
+            $("#Mmensaje").val(""),
+            $("#selectclientmen").val(""),
+            $("#selectcomputermen").val("")
+    }
 }
 
 function borrarMensajes(idMessage) {
@@ -98,7 +101,7 @@ function borrarMensajes(idMessage) {
     let datosPeticion=JSON.stringify(datos);
 
     $.ajax({
-        url:"http://localhost:8080/api/Message/"+idMessage ,
+        url:"http://144.22.58.14:8080/api/Message/"+idMessage ,
         type:"DELETE",
         data:datosPeticion,
         contentType:"application/JSON",
@@ -115,24 +118,24 @@ function borrarMensajes(idMessage) {
     
 }
 
+$("Retos").ready(function(){
+    $("#btnActualizarMensajes").hide();
 
-
+})
+ 
 async function editarRegistroMensajes(idMessage) {
     $("#btnActualizarMensajes").show();
     $("#btnConsultarMensajes").hide();
     $("#btnGuardarMensajes").hide();
     $("#selectcomputermen").hide();
     $("#selectclientmen").hide();
-    // $("#btnConsultarC").hide();
-    // $("#numIdC").prop('disabled',true);
-    // $("#numIdC").focus(); 
     var datos={
         id:idMessage
     }
     mensajeid= idMessage;
     console.log(idMessage); 
     $.ajax({
-        url:"http://localhost:8080/api/Message/" + idMessage,
+        url:"http://144.22.58.14:8080/api/Message/" + idMessage,
         type:'GET',
         dataType:'json',
 
@@ -142,9 +145,7 @@ async function editarRegistroMensajes(idMessage) {
             computadores= respuesta;
             $("#Mmensaje").val(respuesta.messageText),
             console.log( respuesta.computer.name);
-            //$("#selectcomputermen").val(respuesta.computer.name),
             console.log(respuesta.client.name);
-            //$("#selectclientmen").val(respuesta.client.name)         
         },
 
         error:function(xhr,status){
@@ -157,46 +158,49 @@ async function editarRegistroMensajes(idMessage) {
 
 
 function actualizarInformacionMensajes(){
-
-    let var3 = {
-                "idMessage":mensajeid, 
-                "messageText":$("#Mmensaje").val(),
-                "client":computadores.client, 
-                "computer":computadores.computer 
+    if($("#Mmensaje").val()== "" || $("#selectclientmen").val()=="" 
+            || $("#selectcomputermen").val()==""){
+        alert("¡¡ ERROR !! Todos los campos son Obligatorios")
+    }else{ 
+        let var3 = {
+                    "idMessage":mensajeid, 
+                    "messageText":$("#Mmensaje").val(),
+                    "client":computadores.client, 
+                    "computer":computadores.computer 
+                }
+            $.ajax({
+            type:'PUT',
+            contentType: "application/json; charset=utf-8",
+            dataType: 'JSON',
+            data: JSON.stringify(var3),
+            
+            url:"http://144.22.58.14:8080/api/Message/update",
+        
+            
+            success:function(response) {
+                    console.log(response);
+                console.log("Se actualizó correctamente");
+                alert("Se actualizó correctamente");
+                traerInformacionMensajes();
+        
+            },
+            
+            error: function(jqXHR, textStatus, errorThrown) {
+                window.location.reload()
+                alert("No se actualizó correctamente");
+        
+        
             }
-        $.ajax({
-        type:'PUT',
-        contentType: "application/json; charset=utf-8",
-        dataType: 'JSON',
-        data: JSON.stringify(var3),
-        
-        url:"http://localhost:8080/api/Message/update",
-       
-        
-        success:function(response) {
-                console.log(response);
-            console.log("Se actualizó correctamente");
-            alert("Se actualizó correctamente");
-            traerInformacionMensajes();
-    
-        },
-        
-        error: function(jqXHR, textStatus, errorThrown) {
-              window.location.reload()
-            alert("No se actualizó correctamente");
-    
-    
-        }
-        });
+            });
 
-    $("#btnActualizarMensajes").hide();
-    
-    $("#btnConsultarMensajes").show();
-    $("#btnGuardarMensajes").show(),
-    $("#Mmensaje").val(""),
-    $("#selectcomputermen").show(),
-    $("#selectclientmen").show()
-   
-    
+        $("#btnActualizarMensajes").hide();
+        
+        $("#btnConsultarMensajes").show();
+        $("#btnGuardarMensajes").show(),
+        $("#Mmensaje").val(""),
+        $("#selectcomputermen").show(),
+        $("#selectclientmen").show()
+    }
+
 
 }

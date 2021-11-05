@@ -51,6 +51,7 @@ public class ServiciosReservaciones {
                     e.get().setDevolutionDate(reservacion.getDevolutionDate());
                 }
                 if(reservacion.getStatus()!=null){
+                    //reservacion.setStatus(reservacion.);
                     e.get().setStatus(reservacion.getStatus());
                 }
                 metodosCrud.save(e.get());

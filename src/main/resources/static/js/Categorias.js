@@ -3,7 +3,7 @@ var idCate = 0;
 async function traerInformacionCategoriasCom(){
 
     $.ajax({
-        url:"http://localhost:8080/api/Category/all",
+        url:"http://144.22.58.14:8080/api/Category/all",
         type:"GET",
         datatype:"JSON",
         success:function(respuesta){
@@ -20,18 +20,18 @@ async function traerInformacionCategoriasCom(){
 
 function pintarRespuesta(respuesta){
 
-    var myTable =`<table border="1">
+    var myTable =`<table border="1" class="table table-dark table-striped">
     <tr>
       <th>Nombre</th>
-      <th>Descrpción</th>
+      <th>Descripción</th>
       <th colspan="2">Acciones</th>
     </tr>`;
     for(i=0;i<respuesta.length;i++){
         myTable+=`<tr>
                 <td>${respuesta[i].name}</td>
                 <td>${respuesta[i].description}</td>
-                <td><button onclick="editarRegistroCategorias(${respuesta[i].id})">Editar</td>
-                <td><button onclick="borrarCategorias(${respuesta[i].id})">Borrar</td> 
+                <td><button onclick="editarRegistroCategorias(${respuesta[i].id})" class="btn btn-outline-success">Editar</td>
+                <td><button onclick="borrarCategorias(${respuesta[i].id})" class="btn btn-outline-danger">Borrar</td> 
        
             </tr>`;
     }
@@ -40,6 +40,9 @@ function pintarRespuesta(respuesta){
 }
 
 function guardarInformacionCategorias(){
+    if($("#Cname").val()== "" || $("#Cdescription").val()=="" ){
+        alert("¡¡ ERROR !! Todos los campos son Obligatorios")
+    }else{ 
     let var2 = {
         name:$("#Cname").val(),
         description:$("#Cdescription").val()
@@ -51,7 +54,7 @@ function guardarInformacionCategorias(){
         dataType: 'JSON',
         data: JSON.stringify(var2),
         
-        url:"http://localhost:8080/api/Category/save",
+        url:"http://144.22.58.14:8080/api/Category/save",
        
         
         success:function(response) {
@@ -72,7 +75,7 @@ function guardarInformacionCategorias(){
 
         $("#Cname").val(""),
         $("#Cdescription").val("")    
-
+    }
 }
 
 function borrarCategorias(categoriaId) {
@@ -83,7 +86,7 @@ function borrarCategorias(categoriaId) {
     let datosPeticion=JSON.stringify(datos);
 
     $.ajax({
-        url:"http://localhost:8080/api/Category/"+categoriaId ,
+        url:"http://144.22.58.14:8080/api/Category/"+categoriaId ,
         type:"DELETE",
         data:datosPeticion,
         contentType:"application/JSON",
@@ -100,27 +103,26 @@ function borrarCategorias(categoriaId) {
     
 }
 
+$("Retos").ready(function(){
+    $("#btnActualizarCategorias").hide();
+
+})
 
 async function editarRegistroCategorias(categoriaId) {
     $("#btnActualizarCategorias").show();
     $("#btnConsultarCategorias").hide();
     $("#btnGuardarCategorias").hide();
-    // $("#btnConsultarC").hide();
-    // $("#numIdC").prop('disabled',true);
-    // $("#numIdC").focus(); 
     var datos={
         id:categoriaId
     }
     idCate= categoriaId;
     console.log(idCate); 
     $.ajax({
-        url:"http://localhost:8080/api/Category/" + categoriaId,
+        url:"http://144.22.58.14:8080/api/Category/" + categoriaId,
         type:'GET',
         dataType:'json',
 
         success:function(respuesta){
-            // var items=respuesta.items;
-            
             console.log(respuesta);
             $("#Cname").val(respuesta.name),
             $("#Cdescription").val(respuesta.description)           
@@ -136,45 +138,45 @@ async function editarRegistroCategorias(categoriaId) {
 
  
 }
- function idActualizarCategorias(categoriaId){
-     var idC = categoriaId;
-     return idC;
- }
+
 function actualizarInformacionCategorias(){
-    console.log(idCate)
-    var datos={
-        id:idCate,
-        name:$("#Cname").val(),
-        description:$("#Cdescription").val()
+    if($("#Cname").val()== "" || $("#Cdescription").val()=="" ){
+        alert("¡¡ ERROR !! Todos los campos son Obligatorios")
+    }else{ 
+        console.log(idCate)
+        var datos={
+            id:idCate,
+            name:$("#Cname").val(),
+            description:$("#Cdescription").val()
         }
 
-    let datosPeticion=JSON.stringify(datos);
+        let datosPeticion=JSON.stringify(datos);
 
-    $.ajax({
-        url:"http://localhost:8080/api/Category/update",
-        data:datosPeticion,
-        type:'PUT',
-        contentType:"application/JSON",
+        $.ajax({
+            url:"http://144.22.58.14:8080/api/Category/update",
+            data:datosPeticion,
+            type:'PUT',
+            contentType:"application/JSON",
 
-        success:function(respuesta){
-            console.log("Actualizado");
-            alert("Registro actualizado con exito")
-            traerInformacionCategoriasCom();
-        },
+            success:function(respuesta){
+                console.log("Actualizado");
+                alert("Registro actualizado con exito")
+                traerInformacionCategoriasCom();
+            },
 
-        error:function(xhr,status){
-            console.log(status);
-        }
-    });
+            error:function(xhr,status){
+                console.log(status);
+            }
+        });
 
-    $("#btnActualizarCategorias").hide();
-    
-    $("#btnConsultarCategorias").show();
-    $("#btnGuardarCategorias").show(),
-    
-    $("#Cname").val(""),
-    $("#Cdescription").val("")
-    
+        $("#btnActualizarCategorias").hide();
+        
+        $("#btnConsultarCategorias").show();
+        $("#btnGuardarCategorias").show(),
+        
+        $("#Cname").val(""),
+        $("#Cdescription").val("")
+    }
 
 }
 

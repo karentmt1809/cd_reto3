@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Reportes</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css"/>
+        <script type="text/javascript" src="js/Reportes.js"></script>
+    </head>
+    <body >
+            <div class="bg-success p-4 text-dark bg-opacity-50">
+                <nav class="navbar navbar-light navbar-expand-md bg-light justify-content-between">
+                <div class="container-fluid">
+                    <a href="/" class="navbar-brand mx-auto d-block text-center order-0 order-md-1 w-25"  > 
+                        Reportes Tienda de Computadores
+                    </a>
+                    </div>
+                </nav>
+            </div>
+
+            <div class="bg-success p-2 text-dark bg-opacity-10 "> 
+                <br><br><br>
+
+                <div>
+                    ¡¡ Querid@ !!:    <span id="user"></span>     aqui podrá encontrar algunos informes de su interés.  
+                </div>
+
+                <script type="text/javascript">    
+                    $.get("/user", function (data) { 
+                        $("#user").html(data.name);             
+                    });
+                </script>
+
+                
+                <br><br><br>
+
+                <h2>¿Desea conocer acerca del estado de nuestras reservaciones?</h2>
+                <br>
+                <h5>En este reporte podra ver la cantidad de reservaciones canceladas y completadas </h5>
+                <br>
+                <div class="row g-3 container" >
+                    <div class="col ">
+                        <button onclick="traerReporteStatus()" id=btnReporteStatus class="btn btn-outline-info" type="button"> Generar Reporte Status Reservas </button>
+                        <br><br>
+                    </div >
+                </div>
+                <br>
+                <div class="row g-3 container">
+                    <div class="col"  id="resultadoStatus">
+                        </div>
+                </div>
+
+
+                <br><br>
+
+                <h2>¿Desea conocer qué reservaciones se hicieron en un determinado periodo de tiempo?</h2>
+                <br>
+                <h5>En este reporte podrá ver que reservas fueron realizadas en el periodo de tiempo que usted seleccione. </h5>
+                <br>
+                <div class="row g-3 container" >
+                    <div class="col ">
+                        <input type="date" class="form-control" placeholder="Fecha 1" aria-label="RstarDate" id="RstarDate">
+                        <br>
+                    </div >
+                    <div class="col ">
+                        <input type="date" class="form-control" placeholder="Fecha 2" aria-label="RdevolutionDate" id="RdevolutionDate">
+                        <br>
+                    </div >
+                    <div class="col ">
+                        <button onclick="traerReporteDate()" id=btntraerReporteDate class="btn btn-outline-info" type="button"> Generar Reporte por fecha </button>
+                        <br>
+                    </div >
+                </div>
+                <br>
+                <div class="row g-3 container">
+                    <div class="col"  id="resultadoDate">
+                        </div>
+                </div>
+
+                <br><br>
+
+                <h2>¿Desea conocer más acerca del top de nuestros clientes?</h2>
+                <br>
+                <h5>En este reporte podrá ver la actividad de los clientes y la cantidad de reservas hechas por cada uno de los clientes. </h5>
+                <br><br>
+                <div class="row g-3 container" >
+                    <div class="col ">
+                        <!-- <button onclick="traerReporteClientes()"> Generar Reporte Clientes y Cantidad de reservas por cliente </button> -->
+                        <button onclick="traerReporteClientes()" id=btntraerReporteClientes class="btn btn-outline-info" type="button"> Generar Reporte de Clientes y Cantidad de reservas. </button>
+                        <br><br>
+                    </div >
+                </div>
+                <br>
+                <div class="row g-3 container">
+                    <!-- <div id="resultadoClientes"></div> -->
+                    <div class="col"  id="resultadoClientes">
+                        </div>
+                </div>
+               
+            </div>
+        
+    </body>
+</html>
